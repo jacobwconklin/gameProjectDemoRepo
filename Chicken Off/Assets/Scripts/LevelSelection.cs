@@ -56,6 +56,26 @@ public class LevelSelection : MonoBehaviour
         StartLevel(2);
     }
 
+    public void StartFourthMap()
+    {
+        StartLevel(3);
+    }
+
+    public void StartFifthMap()
+    {
+        StartLevel(4);
+    }
+
+    public void StartSixthMap()
+    {
+        StartLevel(5);
+    }
+
+    public void StartSeventhMap()
+    {
+        StartLevel(6);
+    }
+
     public void MainMenu()
     {
         // Need to remove all "do not destroy items" AKA the players

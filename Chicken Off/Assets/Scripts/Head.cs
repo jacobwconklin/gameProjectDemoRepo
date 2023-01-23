@@ -28,28 +28,24 @@ public class Head : MonoBehaviour
     // 3) mundane obstacle / wall (do nothing)
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision detected");
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("GROUND"))
         {
-            Debug.Log("Head hit ground");
             gameplay.headOnGround();
         } else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("PLAYER"))
         {
-            gameplay.takeAHit();
+            // gameplay.takeAHit(); No longer counting head touching another player as a "hit" only player atttacks
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision detected");
         if (other.gameObject.layer == LayerMask.NameToLayer("GROUND"))
         {
-            Debug.Log("Head hit ground");
             gameplay.headOnGround();
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("PLAYER"))
         {
-            gameplay.takeAHit();
+            // gameplay.takeAHit(); No longer counting head touching another player as a "hit" only player atttacks
         }
     }
 }

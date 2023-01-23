@@ -81,7 +81,8 @@ public class PersistentValues
     // Needs to be called when players are created. 
     public int AddPlayer(PlayerInput playerInput)
     {
-        Debug.Log("in persistent values add player called");
+        Debug.Log("add player in persistent values called");
+
         numPlayers++; 
         Player newPlayer = new Player();
         newPlayer.playerInput = playerInput;
@@ -95,7 +96,8 @@ public class PersistentValues
         Animator newSkinAnimator = newPlayer.selectedCharacter.GetComponent<Animator>();
         PlayerGameplay playerGameplay = newPlayer.playerInput.GetComponent<PlayerGameplay>();
         playerGameplay.animator = newSkinAnimator;
-        newSkinAnimator.ResetTrigger("TouchedGround");
+        playerGameplay.playerAudio = newPlayer.selectedCharacter.GetComponentInChildren<PlayerAudio>();
+        playerGameplay.hitEffect = newPlayer.selectedCharacter.GetComponentInChildren<HitEffect>();
         newSkinAnimator.ResetTrigger("Jumped");
         // NEED TO DO SOMETHING TO ANIMATOR TO SET UP JUMP TRIGGERING CORRECTLY FOR SOME REASON IDK WHAY THE PROB IS 
         playerGameplay.playerNum = numPlayers - 1;
@@ -136,6 +138,8 @@ public class PersistentValues
         Animator newSkinAnimator = player.selectedCharacter.GetComponent<Animator>();
         PlayerGameplay playerGameplay = player.playerInput.GetComponent<PlayerGameplay>();
         playerGameplay.animator = newSkinAnimator;
+        playerGameplay.playerAudio = player.selectedCharacter.GetComponentInChildren<PlayerAudio>();
+        playerGameplay.hitEffect = player.selectedCharacter.GetComponentInChildren<HitEffect>();
         newSkinAnimator.ResetTrigger("TouchedGround");
     }
 

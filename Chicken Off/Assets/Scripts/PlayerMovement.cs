@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
     // Where player Input is stored to be read by Update
     private Vector2 movementInput;
     private Vector2 tiltInput;
-    // Currently not implemented:
+    // Jumping has a slight cooldown to fix glitchy jumps where collider stays inside 
+    // other blocks and player jumps insanely high
+    private float jumpCooldown = 0;
     private bool pressedJump = false;
     public bool isGrounded = true;
     public bool pressedStart = false; // Everyone press start at same time to start game?
@@ -41,9 +43,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // If grounded and pressed jump perform jump. Animation should be triggered soley by colider?? maybe
-        if (pressedJump && isGrounded)
+        if (pressedJump && isGrounded && Time.time > jumpCooldown)
         {
             GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            // Cue sound
+            gameplay.playerAudio.playJumpSound();
+            jumpCooldown = Time.time + 0.5f;
         }
 
         if (movementInput != Vector2.zero)

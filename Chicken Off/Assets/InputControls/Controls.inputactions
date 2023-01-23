@@ -339,6 +339,17 @@
                     "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c24c0d55-083a-4c73-94d1-b51c7e58bc57",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardAndMouse",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -22,22 +22,25 @@ public class JumpFoot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         // TODO may want to only allow some kinds of collision to count as ground?
         // For now just don't count object itself
-        Debug.Log("trigger ENTER");
         
         playerMovement.isGrounded = true;
-        playerGameplay.animator.SetTrigger("TouchedGround"); 
-        
+        playerGameplay.animator.SetBool("IsGrounded", true);
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("trigger EXIT");
         // TODO not sure how to tell if this foot is no longer touching anything?
         playerMovement.isGrounded = false;
-        // Tell animator?
-        playerGameplay.animator.SetTrigger("Jumped");
+        // Tell animator? 
+        playerGameplay.animator.SetBool("IsGrounded", false);
     }
 
 }

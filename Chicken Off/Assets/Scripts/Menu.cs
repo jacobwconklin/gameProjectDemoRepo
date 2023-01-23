@@ -26,11 +26,14 @@ public class Menu : MonoBehaviour
 
     public void StartLastPairStanding()
     {
-        SceneManager.LoadScene(lastPairStandingSceneNumber);
+        // For now nothing but will be -> SceneManager.LoadScene(lastPairStandingSceneNumber);
     }
 
     public void StartCampaign()
     {
-        SceneManager.LoadScene(campaignSceneNumber);
+        // For now nothing but will be -> SceneManager.LoadScene(campaignSceneNumber);
     }
+
+    // TODO may also set up endless waves like gang beasts to coop and see how many kills you can
+    // acheive with respawning teammates each wave and special boss on waves divisible by 20 and final boss at 100
 }

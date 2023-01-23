@@ -14,16 +14,21 @@ public class GameController : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private GameObject winnerDisplay;
     [SerializeField] private TextMeshProUGUI winnerName;
+    [SerializeField] private GameObject three;
+    [SerializeField] private GameObject two;
+    [SerializeField] private GameObject one;
     private int numPlayers;
     private int numDeadPlayers;
     private List<int> livingPlayers = new List<int>();
     private Player winner = null;
     private bool gameOver = false;
+    private GameSounds gameSounds;
 
     // Start is called before the first frame update
     void Awake()
     {
         // Places every character
+        gameSounds = GetComponentInChildren<GameSounds>();
         StartCoroutine(PlaceAllCharacters());
     }
 
@@ -41,10 +46,22 @@ public class GameController : MonoBehaviour
             playerGameplay.SetPlayerNum(player.playerNum);
             livingPlayers.Add(player.playerNum);
             // Reset skin's parent? TODO DON'T KNOW WHY THIS NEEDS TO BE DONE
-            player.selectedCharacter.transform.SetParent(player.playerInput.transform);
+            //player.selectedCharacter.transform.SetParent(player.playerInput.transform);
         }
         // DISPLAY COUNTOWN ON UI TODO
-        yield return new WaitForSeconds(3);
+        three.SetActive(true);
+        gameSounds.PlayCountdownSound();
+        yield return new WaitForSeconds(1);
+        three.SetActive(false);
+        two.SetActive(true);
+        gameSounds.PlayCountdownSound();
+        yield return new WaitForSeconds(1);
+        two.SetActive(false);
+        one.SetActive(true);
+        gameSounds.PlayCountdownSound();
+        yield return new WaitForSeconds(1);
+        one.SetActive(false);
+        gameSounds.PlayStartSound();
         // Unfreeze rigid body rotations
 
         foreach (Player newPlayer in allPlayers)
@@ -74,24 +91,16 @@ public class GameController : MonoBehaviour
 
     IEnumerator EndGame()
     {
-        Debug.Log("ENDING GAME");
         if (livingPlayers.Count == 1)
         {
             winner = PersistentValues.persistentValues.players[livingPlayers[0]];
             PersistentValues.persistentValues.AddPlayerVictory(livingPlayers[0]);
-            // End game 
-            Debug.Log("winner is: " + winner.selectedCharacter.gameObject.name);
-            // DISPLAY WINNER ON UI
-            ShowWinner();
-            yield return new WaitForSeconds(5);
-
+            gameSounds.PlayVictorySound();
         }
-        else if (livingPlayers.Count < 1)
-        {
-            // Everyone loses
-            Debug.Log("Everyone lost");
-            yield return new WaitForSeconds(5);
-        }
+        // End game 
+        // DISPLAY WINNER ON UI
+        ShowWinner();
+        yield return new WaitForSeconds(5);
         // end game essentially and move to level select:
         PersistentValues.persistentValues.gameIsStarted = false;
         // want a quick Victory pop up here before returning to scene selection so will need coroutines probably. 
